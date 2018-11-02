@@ -55,6 +55,7 @@ export default function page (Component) {
           ref={ref}
           onLoadMore={this.handleLoadMore}
           onChangeStatus={this.handleChangeStatus}
+          {...this.props}
         />
       )
     }

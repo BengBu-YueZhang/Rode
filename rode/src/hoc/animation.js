@@ -7,7 +7,7 @@ import React, { Component } from 'react'
 export default function Animation (Components) {
   return class extends Component {
     render () {
-      const { timeout, name, status, ...arg }  = this.props
+      const { timeout, name, status, ...args }  = this.props
       return (
         <CSSTransition
           in={status}
