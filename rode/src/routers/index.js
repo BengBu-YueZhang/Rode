@@ -1,34 +1,35 @@
+import React from 'react'
 import Loadable from 'react-loadable'
 import Loading from '@/components/Loading'
 
 const User = Loadable({
-  loader: () => import('@/views/User'),
-  loading: Loading
+  loader: () => import('./../views/User'),
+  loading: () => <Loading/>
 })
 
 const List = Loadable({
-  loader: () => import('@/views/List'),
-  loading: Loading
+  loader: () => import('./../views/List'),
+  loading: () => <Loading/>
 })
 
 const Login = Loadable({
-  loader: () => import('@/views/Login'),
-  loading: Loading
+  loader: () => import('./../views/Login'),
+  loading: () => <Loading/>
 })
 
 const Message = Loadable({
-  loader: import('@/views/Message'),
-  loading: Loading
+  loader: () => import('./../views/Message'),
+  loading: () => <Loading/>
 })
 
 const Editor = Loadable({
-  loader: () => import('@/views/Editor'),
-  loading: Loading
+  loader: () => import('./../views/Editor'),
+  loading: () => <Loading/>
 })
 
 const Detail = Loadable({
-  loader: () => import('@/views/Detail'),
-  loading: Loading
+  loader: () => import('./../views/Detail'),
+  loading: () => <Loading/>
 })
 
 const routers = [

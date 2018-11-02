@@ -16,6 +16,7 @@ const styles = {
     zIndex: 9999
   }
 }
+
 class Loading extends Component {
   render () {
     const { classes } = this.props
