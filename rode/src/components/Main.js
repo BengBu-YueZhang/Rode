@@ -9,15 +9,16 @@ const styles = {
     left: 0,
     right: 0,
     bottom: '56px',
-    backgroundColor: blueGrey[50]
+    backgroundColor: blueGrey[50],
+    overflowX: 'hidden',
+    overflowY: 'auto'
   }
 }
 
 class Main extends Component {
   render () {
-
     const { classes } = this.props
-
+    
     return (
       <div className={classes.root}>
       </div>

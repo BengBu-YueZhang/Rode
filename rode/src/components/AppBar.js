@@ -18,7 +18,7 @@ class Bar extends Component {
             <Typography variant="h6" color="inherit">
               Rode
             </Typography>
-            <Button color="inherit">Login</Button>
+            <Button color="inherit">登录</Button>
           </Toolbar>
         </AppBar>
       </div>
