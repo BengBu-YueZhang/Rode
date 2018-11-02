@@ -26,6 +26,11 @@ const Editor = Loadable({
   loading: Loading
 })
 
+const Detail = Loadable({
+  loader: () => import('@/views/Detail'),
+  loading: Loading
+})
+
 const routers = [
   {
     path: '/',
@@ -64,6 +69,13 @@ const routers = [
     component: User,
     meta: {
       requiresAuth: true
+    }
+  },
+  {
+    path: '/detail/:id',
+    component: Detail,
+    meta: {
+      requiresAuth: false
     }
   }
 ]
