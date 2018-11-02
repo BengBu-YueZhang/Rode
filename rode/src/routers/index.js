@@ -58,6 +58,13 @@ const routers = [
     meta: {
       requiresAuth: true
     }
+  },
+  {
+    path: '/user',
+    component: User,
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 

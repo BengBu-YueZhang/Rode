@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import blueGrey from '@material-ui/core/colors/blueGrey'
+import RunRoute from '@/components/RunRoute'
+import routers from '@/routers'
 
 const styles = {
   root: {
@@ -21,6 +23,7 @@ class Main extends Component {
     
     return (
       <div className={classes.root}>
+        <RunRoute routes={routers}/>
       </div>
     )
   }
