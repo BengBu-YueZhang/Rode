@@ -37,6 +37,8 @@ const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
 
 // common function to get style loaders
 const getStyleLoaders = (cssOptions, preProcessor) => {
@@ -312,6 +314,11 @@ module.exports = {
               },
               'sass-loader'
             ),
+          },
+          {
+            test: lessRegex,
+            exclude: lessModuleRegex,
+            use: getStyleLoaders({ importLoaders: 2 }, 'less-loader')
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.
           // When you `import` an asset, you get its (virtual) filename.
