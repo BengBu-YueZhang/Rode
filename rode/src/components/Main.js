@@ -33,14 +33,14 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onCloseMessage: () => {
-      dispatch(actions.visibleMessage())
+      dispatch(actions.visibleMessage(false))
     }
   }
 }
 
 class Main extends Component {
   handleClose = () => {
-    this.onCloseMessage()
+    this.props.onCloseMessage()
   }
 
   render () {

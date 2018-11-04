@@ -19,6 +19,8 @@ class Message extends Component {
         ContentProps={{
           'aria-describedby': 'message-id',
         }}
+        autoHideDuration={4000}
+        onClick={this.handleClose}
         message={message}
         action={[
           <IconButton

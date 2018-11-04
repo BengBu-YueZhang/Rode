@@ -6,16 +6,17 @@ function* getTopics (page, limit) {
   try {
     const data = yield call(topics, { page, limit })
     yield put(actions.postSuccess(data.data))
+    yield put(actions.visibleMessage(false))
   } catch (error) {
     yield put(actions.postError())
   }
-  yield put(actions.visibleLoading())
+  yield put(actions.visibleLoading(false))
 }
 
 function* main () {
   while (true) {
     const { page, limit } = yield take(actions.POST_REQUEST)
-    yield put(actions.visibleLoading())
+    yield put(actions.visibleLoading(true))
     yield call(getTopics, page, limit)
   }
 }
