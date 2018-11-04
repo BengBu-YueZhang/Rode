@@ -20,7 +20,7 @@ class Message extends Component {
           'aria-describedby': 'message-id',
         }}
         autoHideDuration={4000}
-        onClick={this.handleClose}
+        onClose={this.handleClose}
         message={message}
         action={[
           <IconButton
