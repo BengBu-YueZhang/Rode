@@ -20,21 +20,13 @@ const styles = {
 class PostList extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      list: []
-    }
-    this.get = this.get.bind(this)
-  }
-
-  async get () {
   }
 
   render () {
     const { classes } = this.props
-    const { list } = this.state
     return (
       <div className={classes.root}>
-        {
+        {/* {
           list.length > 0 && list.map(li => {
             return (
               <List className={classes.list}>
@@ -47,7 +39,7 @@ class PostList extends Component {
               </List>
             )
           })
-        }
+        } */}
       </div>
     )
   }

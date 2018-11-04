@@ -3,6 +3,8 @@ import { withStyles } from '@material-ui/core/styles'
 import blueGrey from '@material-ui/core/colors/blueGrey'
 import RunRoute from '@/components/RunRoute'
 import routers from '@/routers'
+import Message from '@/components/Message'
+import Loading from '@/components/Loading'
 
 const styles = {
   root: {
