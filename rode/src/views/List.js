@@ -7,9 +7,6 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import BeachAccessIcon from '@material-ui/icons/BeachAccess'
 import { compose } from 'redux'
-import action from '@/store/actions'
-
-console.log(action)
 
 const styles = {
   root: {

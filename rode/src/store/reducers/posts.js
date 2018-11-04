@@ -4,7 +4,7 @@ import actions from '@/store/actions'
 function posts (state = List([]), action) {
   switch (action.type) {
     case actions.POST_SUCCESS:
-      return state.concat(List(data))
+      return state.concat(List(action.data))
     case actions.POST_ERROR:
       return state.clear()
     case actions.POST_REFRESH:
