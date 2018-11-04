@@ -6,7 +6,6 @@ function* getTopics (page, limit) {
   try {
     const data = yield call(topics, { page, limit })
     yield put(actions.postSuccess(data.data))
-    yield put(actions.visibleMessage(true))
   } catch (error) {
     yield put(actions.postError())
   }

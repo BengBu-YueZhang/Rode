@@ -38,7 +38,7 @@ class PostList extends Component {
     this.state = {
       filter: {
         page: 1,
-        limit: 10
+        limit: 30
       }
     }
   }
