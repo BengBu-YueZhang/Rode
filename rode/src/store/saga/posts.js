@@ -1,8 +1,8 @@
 import { topics } from '@/api'
 import actions from '@/store/actions'
-import { take, call, put } from 'redux-saga'
+import { take, call, put } from 'redux-saga/effects'
 
-function getTopics (page, limit) {
+function* getTopics (page, limit) {
   try {
     const { data: { data } } = yield call(topics, { page, limit })
     yield put(actions.postSuccess(data))
