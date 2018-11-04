@@ -13,7 +13,7 @@ export async function collect (params) {
 // 帖子列表
 export async function topics (params) {
   try {
-    return await Axios.get(api.topics, params)
+    return await Axios.get(api.topics, { params })
   } catch (error) {
     throw error
   }
