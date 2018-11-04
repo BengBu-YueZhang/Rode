@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
 import PropTypes from 'prop-types'
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/Close'
 
 class Message extends Component {
 
   handleClose = () => {
-    this.onClose()
+    this.props.onClose()
   }
 
   render () {
@@ -14,11 +16,20 @@ class Message extends Component {
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}
-        onClose={this.handleClose}
         ContentProps={{
           'aria-describedby': 'message-id',
         }}
         message={message}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={this.handleClose}
+          >
+            <CloseIcon />
+          </IconButton>
+        ]}
       />
     )
   }
@@ -33,7 +44,7 @@ Message.propTypes = {
 }
 
 Message.defaultProps = {
-  vertical: 'top',
+  vertical: 'bottom',
   horizontal: 'center',
   open: false,
   message: 'message',

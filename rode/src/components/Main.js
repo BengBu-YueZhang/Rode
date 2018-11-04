@@ -8,6 +8,7 @@ import Loading from '@/components/Loading'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { getVisibleLoading, getVisibleMessage } from '@/store/selectors/main'
+import actions from '@/store/actions'
 
 const styles = {
   root: {
@@ -29,16 +30,28 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onCloseMessage: () => {
+      dispatch(actions.visibleMessage())
+    }
+  }
+}
+
 class Main extends Component {
+  handleClose = () => {
+    this.onCloseMessage()
+  }
+
   render () {
     const { classes, visibleLoading, message } = this.props
-    console.log(this.props)
     return (
       <div className={classes.root}>
         <RunRoute routes={routers}/>
         <Message
           open={message.get('visible')}
           message={message.get('message')}
+          onClose={this.handleClose}
         />
       { visibleLoading && <Loading/> }
       </div>
@@ -46,4 +59,4 @@ class Main extends Component {
   }
 }
 
-export default compose(connect(mapStateToProps), withStyles(styles))(Main)
+export default compose(connect(mapStateToProps, mapDispatchToProps), withStyles(styles))(Main)
