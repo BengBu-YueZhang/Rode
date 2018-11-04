@@ -21,6 +21,9 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
+/**
+ * 全局单例组件
+ */
 class SingleCase extends Component {
   handleClose = () => {
     this.props.onCloseMessage()
