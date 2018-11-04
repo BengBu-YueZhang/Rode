@@ -55,7 +55,6 @@ class PostList extends Component {
 
   render () {
     const { classes, posts } = this.props
-    console.log(posts)
     return (
       <div className={classes.root}>
         <List className={classes.list} >
