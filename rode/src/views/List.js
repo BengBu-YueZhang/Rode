@@ -71,7 +71,7 @@ class PostList extends Component {
                     }
                     <ListItemText
                       primary={<p className={classes.text}>{li.title}</p>}
-                      secondary={<p>{new Date(li.create_at).toDateString()}</p>}
+                      secondary={<span>{new Date(li.create_at).toDateString()}</span>}
                     />
                   </ListItem>
                   <Divider/>

@@ -5,6 +5,9 @@ import RunRoute from '@/components/RunRoute'
 import routers from '@/routers'
 import Message from '@/components/Message'
 import Loading from '@/components/Loading'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { getVisibleLoading, getVisibleMessage } from '@/store/selectors/main'
 
 const styles = {
   root: {
@@ -19,17 +22,28 @@ const styles = {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    visibleLoading: getVisibleLoading(state),
+    message: getVisibleMessage(state)
+  }
+}
+
 class Main extends Component {
   render () {
-    const { classes } = this.props
-    
+    const { classes, visibleLoading, message } = this.props
+    console.log(this.props)
     return (
       <div className={classes.root}>
         <RunRoute routes={routers}/>
-        <Message/>
+        <Message
+          open={message.get('visible')}
+          message={message.get('message')}
+        />
+      { visibleLoading && <Loading/> }
       </div>
     )
   }
 }
 
-export default withStyles(styles)(Main)
+export default compose(connect(mapStateToProps), withStyles(styles))(Main)
