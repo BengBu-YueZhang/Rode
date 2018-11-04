@@ -17,6 +17,7 @@ export default function page (Component) {
         // 包装组件的组件
         ref: React.createRef()
       }
+      this.handleLoadMore = this.handleLoadMore.bind(this)
     }
 
     componentDidMount () {
@@ -35,11 +36,18 @@ export default function page (Component) {
       this.el.removeEventListener('scroll')
     }
 
-    handleLoadMore = () => {
-      if (this.loadedAll || this.loading) return
-      const height = this.el.offsetHeight
-      const scrollTop = this.el.scrollTop
-      if (height / scrollTop === 1) this.ref.get()
+    async handleLoadMore () {
+      try {
+        if (this.loadedAll || this.loading) return
+        const height = this.el.offsetHeight
+        const scrollTop = this.el.scrollTop
+        if (height / scrollTop === 1) {
+          this.loading = true
+          this.ref.get()
+        }
+      } catch (error) {
+      }
+      this.loading = false
     }
 
     handleChangeStatus = (key, value) => {

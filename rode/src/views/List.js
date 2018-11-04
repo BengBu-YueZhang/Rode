@@ -18,18 +18,36 @@ const styles = {
 }
 
 class PostList extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      list: []
+    }
+    this.get = this.get.bind(this)
+  }
+
+  async get () {
+  }
+
   render () {
-    const { classes, parent } = this.props
+    const { classes } = this.props
+    const { list } = this.state
     return (
       <div className={classes.root}>
-        <List className={classes.list} ref={parent}>
-          <ListItem>
-            <Avatar>
-              <BeachAccessIcon/>
-            </Avatar>
-            <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-          </ListItem>
-        </List>
+        {
+          list.length > 0 && list.map(li => {
+            return (
+              <List className={classes.list}>
+                <ListItem>
+                  <Avatar>
+                    <BeachAccessIcon/>
+                  </Avatar>
+                  <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+                </ListItem>
+              </List>
+            )
+          })
+        }
       </div>
     )
   }
