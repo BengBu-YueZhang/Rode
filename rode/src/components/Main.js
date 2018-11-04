@@ -26,6 +26,7 @@ class Main extends Component {
     return (
       <div className={classes.root}>
         <RunRoute routes={routers}/>
+        <Message/>
       </div>
     )
   }
