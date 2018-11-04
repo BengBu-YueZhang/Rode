@@ -51,8 +51,8 @@ export default function page (Component) {
     render () {
       return (
         <Component
-          el={el}
-          ref={ref}
+          el={this.state.el}
+          ref={this.state.ref}
           onLoadMore={this.handleLoadMore}
           onChangeStatus={this.handleChangeStatus}
           {...this.props}

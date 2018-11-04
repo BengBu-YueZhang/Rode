@@ -9,7 +9,6 @@ class RunRoute extends Component {
         {
           routes.map((config, index) => {
             const { path, component: Component } = config
-            console.log(Component)
             return (
               config.redirect ? (
                 <Redirect
