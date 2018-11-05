@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
@@ -33,7 +33,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-class PostList extends Component {
+class PostList extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
