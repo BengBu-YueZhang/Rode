@@ -40,7 +40,7 @@ class LoadMore extends React.Component {
   }
 
   handleDeleteEvent = () => {
-    this.ref.current.removeEventListener('scroll')
+    this.ref.current.removeEventListener('scroll', this.handleLoadMore)
   }
 
   handleLoadMore = () => {
