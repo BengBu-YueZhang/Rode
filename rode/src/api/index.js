@@ -18,3 +18,12 @@ export async function topics (params) {
     throw error
   }
 }
+
+// 登录
+export async function login (params) {
+  try {
+    return await Axios.get(api.login, params)
+  } catch (error) {
+    throw error
+  }
+}

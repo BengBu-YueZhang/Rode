@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { isHaveStorage, getLocalStorage, clearLocalStorage } from '@/util/storage'
+import { isHaveStorage, getLocalStorage, removeLocalStorage } from '@/util/storage'
 import { createBrowserHistory } from 'history'
 
 const history = createBrowserHistory()
@@ -36,7 +36,7 @@ Axios.interceptors.response.use(
     switch (errorCode) {
       case 401:
       case 403:
-        clearLocalStorage()
+        removeLocalStorage('token')
         history.push('/login')
         break
       default:

@@ -4,5 +4,7 @@ export default {
   // 取消收藏主题
   de_collect: '/topic_collect/de_collect',
   // 帖子列表
-  topics: '/topics'
+  topics: '/topics',
+  // 登陆
+  login: '/accesstoken'
 }
