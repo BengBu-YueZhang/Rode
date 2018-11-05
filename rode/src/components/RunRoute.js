@@ -1,7 +1,17 @@
 import { Redirect, Switch, Route } from 'react-router-dom'
 import React, { Component } from 'react'
+import { isHaveStorage } from '@/util/storage'
 
 class RunRoute extends Component {
+
+  isAuth = (config) => {
+    if (config && config.meta && !config.meta.requiresAuth) {
+      return true
+    } else {
+      return isHaveStorage('token')
+    }
+  }
+
   render () {
     const { routes } = this.props
     return (
@@ -22,11 +32,20 @@ class RunRoute extends Component {
                   key={index}
                   path={path}
                   render={(props) => {
+                    const isAuth = this.isAuth(config)
                     return (
-                      <Component
-                        {...props}
-                        routes={config.children}
-                      />
+                      isAuth ? (
+                        <Component
+                          {...props}
+                          routes={config.children}
+                        />
+                      ) : (
+                        <Redirect
+                          to={{
+                            pathname: `/login?form=${config.path}`
+                          }}
+                        />
+                      )
                     )
                   }}
                 />
