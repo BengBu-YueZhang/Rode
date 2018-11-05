@@ -1,14 +1,34 @@
-import { List } from 'immutable'
+import { List, Map } from 'immutable'
 import actions from '@/store/actions'
 
-function posts (state = List([]), action) {
+const init = Map({
+  list: List([]),
+  loadedAll: false,
+  loading: false,
+  refresh: true
+})
+
+function posts (state = init, action) {
   switch (action.type) {
     case actions.POST_SUCCESS:
-      return state.concat(List(action.data))
+      return state.withMutations(function (state) {
+        state.set('loading', false)
+        .update('list', list => list.concat(action.data))
+        .set('refresh', false)
+        .update('loadedAll', loadedAll => action.data.length ? false : true)
+      })
     case actions.POST_ERROR:
-      return state.clear()
+      return state.withMutations(function (state) {
+        state.set('loading', false)
+        .update('list', list => list.clear())
+        .set('refresh', true)
+      })
     case actions.POST_REFRESH:
-      return List(action.data)
+      return state.withMutations(function (state) {
+        state.set('refresh', true)
+      })
+    case actions.POST_REQUEST:
+      return state.set('loading', true)
     default:
       return state
   }

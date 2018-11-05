@@ -1,6 +1,7 @@
 import { topics } from '@/api'
 import actions from '@/store/actions'
-import { take, call, put } from 'redux-saga/effects'
+import { take, call, put, select } from 'redux-saga/effects'
+import { getLoading, getRefresh } from '@/store/selectors/posts'
 
 function* getTopics (page, limit) {
   try {
