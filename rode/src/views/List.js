@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { getPosts } from '@/store/selectors/posts'
+import { getPosts, getRefresh, getLoading, getLoadedAll } from '@/store/selectors/posts'
 import actions from '@/store/actions'
 import ImageIcon from '@material-ui/icons/Image'
 import Divider from '@material-ui/core/Divider'
@@ -26,7 +26,10 @@ const styles = {
 
 const mapStateToProps = (state) => {
   return {
-    posts: getPosts(state)
+    posts: getPosts(state),
+    refresh: getRefresh(state),
+    loading: getLoading(state),
+    loadedAll: getLoadedAll(state)
   }
 }
 
@@ -37,15 +40,14 @@ class PostList extends Component {
       filter: {
         page: 1,
         limit: 20
-      },
-      loadedAll: false,
-      loading: false
+      }
     }
     this.ref = React.createRef()
   }
 
   componentDidMount () {
-    this.get()
+    const refresh = this.props
+    if (refresh) this.get()
   }
 
   loadMore = () => {
@@ -63,18 +65,19 @@ class PostList extends Component {
   get = () => {
     const { dispatch } = this.props
     const { page, limit } = this.state.filter
+    dispatch(actions.postRefresh())
     dispatch(actions.postRequest(page, limit))
   }
 
   render () {
     // 如果你不在 render() 中使用某些东西，它就不应该在状态中
-    const { classes, posts } = this.props
+    const { classes, posts, loadedAll, loading } = this.props
     return (
       <LoadMore
         childrenRef={this.ref}
         load={this.loadMore}
-        loadedAll={this.state.loadedAll}
-        loading={this.state.loading}
+        loadedAll={loadedAll}
+        loading={loading}
       >
         <div ref={this.ref}>
           <List className={classes.list} >
