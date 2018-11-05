@@ -1,7 +1,7 @@
 import { topics } from '@/api'
 import actions from '@/store/actions'
 import { take, call, put, select } from 'redux-saga/effects'
-import { getLoading, getRefresh } from '@/store/selectors/posts'
+import { getLoading } from '@/store/selectors/posts'
 
 function* getTopics (page, limit) {
   try {
@@ -14,7 +14,9 @@ function* getTopics (page, limit) {
 }
 
 function* main () {
-  while (true) {
+  const loading = yield select(getLoading)
+  // loading作为开关, 避免重复加载
+  while (!loading) {
     const { page, limit } = yield take(actions.POST_REQUEST)
     yield put(actions.visibleLoading(true))
     yield call(getTopics, page, limit)
