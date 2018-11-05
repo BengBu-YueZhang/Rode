@@ -46,7 +46,7 @@ class PostList extends Component {
   }
 
   componentDidMount () {
-    const refresh = this.props
+    const { refresh } = this.props
     if (refresh) this.get()
   }
 
