@@ -11,11 +11,9 @@ import { getPosts } from '@/store/selectors/posts'
 import actions from '@/store/actions'
 import ImageIcon from '@material-ui/icons/Image'
 import Divider from '@material-ui/core/Divider'
+import LoadMore from '@/components/LoadMore'
 
 const styles = {
-  root: {
-    paddingBottom: '56px'
-  },
   list: {
     backgroundColor: '#fff'
   },
@@ -39,12 +37,27 @@ class PostList extends Component {
       filter: {
         page: 1,
         limit: 20
-      }
+      },
+      loadedAll: false,
+      loading: false
     }
+    this.ref = React.createRef()
   }
 
   componentDidMount () {
     this.get()
+  }
+
+  loadMore = () => {
+    this.setState(prevState => {
+      return {
+        filter: {
+          page: prevState.filter.page + 1
+        }
+      }
+    }, () => {
+      this.get()
+    })
   }
 
   get = () => {
@@ -54,32 +67,40 @@ class PostList extends Component {
   }
 
   render () {
+    // 如果你不在 render() 中使用某些东西，它就不应该在状态中
     const { classes, posts } = this.props
     return (
-      <div className={classes.root}>
-        <List className={classes.list} >
-          {
-            posts.size > 0 && posts.map(li => {
-              return (
-                <React.Fragment key={li.id}>
-                  <ListItem>
-                    {
-                      li.author && li.author.avatar_url ? (
-                        <Avatar src={li.author.avatar_url}/>
-                      ) : ( <ImageIcon/> )
-                    }
-                    <ListItemText
-                      primary={<p className={classes.text}>{li.title}</p>}
-                      secondary={<span>{new Date(li.create_at).toDateString()}</span>}
-                    />
-                  </ListItem>
-                  <Divider/>
-                </React.Fragment>
-              )
-            })
-          }
-        </List>
-      </div>
+      <LoadMore
+        childrenRef={this.ref}
+        load={this.loadMore}
+        loadedAll={this.state.loadedAll}
+        loading={this.state.loading}
+      >
+        <div ref={this.ref}>
+          <List className={classes.list} >
+            {
+              posts.size > 0 && posts.map(li => {
+                return (
+                  <React.Fragment key={li.id}>
+                    <ListItem>
+                      {
+                        li.author && li.author.avatar_url ? (
+                          <Avatar src={li.author.avatar_url}/>
+                        ) : ( <ImageIcon/> )
+                      }
+                      <ListItemText
+                        primary={<p className={classes.text}>{li.title}</p>}
+                        secondary={<span>{new Date(li.create_at).toDateString()}</span>}
+                      />
+                    </ListItem>
+                    <Divider/>
+                  </React.Fragment>
+                )
+              })
+            }
+          </List>
+        </div>
+      </LoadMore>
     )
   }
 }

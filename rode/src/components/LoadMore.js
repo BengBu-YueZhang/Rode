@@ -77,7 +77,8 @@ LoadMore.propTypes = {
   load: PropTypes.func,
   childrenRef: PropTypes.shape({
     current: PropTypes.object
-  }).isRequired
+  }).isRequired,
+  children: PropTypes.element.isRequired
 }
 
 LoadMore.defaultProps = {
