@@ -2,8 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { compose } from 'redux'
 import { withStyles } from '@material-ui/core/styles'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import actions from '@/store/actions'
+import qs from 'qs'
 
 const styles = {
   root: {
@@ -27,7 +30,20 @@ const styles = {
 
 class Login extends React.Component {
 
-  handleButtonClick = () => {
+  constructor (props) {
+    super(props)
+    this.state = {
+      token: ''
+    }
+  }
+
+  handleChange = (e) => {
+    this.setState({ token: e.target.value })
+  }
+
+  handleClick = () => {
+    const { dispatch } = this.props
+    dispatch(actions.loginRequest(this.state.token))
   }
 
   render () {
@@ -39,9 +55,11 @@ class Login extends React.Component {
           label="Access Token"
           margin="dense"
           className={classes.textField}
+          value={this.state.token}
+          onChange={this.handleChange}
         />
         <Button
-          onClick={this.handleButtonClick}
+          onClick={this.handleClick}
           variant="contained"
           color="primary"
           className={classes.button}>
@@ -52,4 +70,4 @@ class Login extends React.Component {
   }
 }
 
-export default compose(withStyles(styles))(Login)
+export default compose(connect(), withStyles(styles))(Login)

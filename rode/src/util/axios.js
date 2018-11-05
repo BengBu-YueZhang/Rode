@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { isHaveStorage, getLocalStorage, removeLocalStorage } from '@/util/storage'
 import { createBrowserHistory } from 'history'
+import stroe from '@/store'
+import actions from '@/store/actions'
 
 const history = createBrowserHistory()
 
@@ -32,14 +34,11 @@ Axios.interceptors.response.use(
   },
   (error) => {
     const errorCode = error.response.status
-    const errMessage = error.response.data.message || error.message
+    const errMessage = error.response.data.error_msg || error.message
     switch (errorCode) {
-      case 401:
-      case 403:
-        removeLocalStorage('token')
-        history.push('/login')
-        break
       default:
+        stroe.dispatch(actions.addMessageQueue(errMessage))
+        stroe.dispatch(actions.processQueue())
         break
     }
     return Promise.reject(errMessage)

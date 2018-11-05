@@ -22,7 +22,7 @@ export async function topics (params) {
 // 登录
 export async function login (params) {
   try {
-    return await Axios.get(api.login, params)
+    return await Axios.post(api.login, params)
   } catch (error) {
     throw error
   }
