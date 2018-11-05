@@ -1,6 +1,7 @@
 import { Redirect, Switch, Route } from 'react-router-dom'
 import React, { Component } from 'react'
 import { isHaveStorage } from '@/util/storage'
+import stroe from '@/store'
 
 class RunRoute extends Component {
 
@@ -41,9 +42,7 @@ class RunRoute extends Component {
                         />
                       ) : (
                         <Redirect
-                          to={{
-                            pathname: `/login?form=${config.path}`
-                          }}
+                          to={`/login?form=${config.path}`}
                         />
                       )
                     )
