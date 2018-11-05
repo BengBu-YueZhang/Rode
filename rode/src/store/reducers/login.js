@@ -6,12 +6,11 @@ const init = Map({
   token: ''
 })
 
-function login (state = init, action, allState) {
+function login (state = init, action) {
   switch (action.type) {
     case actions.LOGOUT:
     case actions.LOGIN_ERROR:
       removeLocalStorage('token')
-      allState.clear()
       return state.set('token', '')
     case actions.LOGIN_SUCCESS:
       setLocalStorage('token', action.token)
