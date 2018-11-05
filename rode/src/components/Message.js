@@ -32,6 +32,7 @@ class Message extends Component {
     const visible = visibleMessage.get('visible')
     return (
       <Snackbar
+        key={message.get('id')}
         anchorOrigin={{ vertical, horizontal }}
         open={visible}
         ContentProps={{
@@ -40,7 +41,7 @@ class Message extends Component {
         autoHideDuration={4000}
         onClose={this.handleClose}
         onExited={this.handleExited}
-        message={message}
+        message={message.get('message')}
         action={[
           <IconButton
             key="close"

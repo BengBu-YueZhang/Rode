@@ -4,14 +4,14 @@ import actions from '@/store/actions'
 const init = Map({
   visible: false,
   messages: List([]),
-  current: ''
+  current: Map({})
 })
 
 function visibleMessage (state = init, action) {
   switch (action.type) {
     case actions.ADD_MESSAGE_QUEUE:
       const { id, message } = action
-      return state.update('messages', messages => messages.push({ id, message }))
+      return state.update('messages', messages => messages.push(Map({id, message})))
     case actions.PROCESS_QUEUE:
       if (state.get('visible')) {
         return state.set('visible', false)
@@ -20,7 +20,7 @@ function visibleMessage (state = init, action) {
           return state.withMutations(function (state) {
             state.set('current', state.get('messages').first())
             .update('messages', messages => messages.shift())
-            .update('visible', true)
+            .set('visible', true)
           })
         }
       }
