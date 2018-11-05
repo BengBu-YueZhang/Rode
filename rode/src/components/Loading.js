@@ -1,6 +1,15 @@
 import React, { Component } from 'react'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles } from '@material-ui/core/styles'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { getVisibleLoading } from '@/store/selectors/visibleLoading'
+
+const mapStateToProps = (state) => {
+  return {
+    visibleLoading: getVisibleLoading(state)
+  }
+}
 
 const styles = {
   root: {
@@ -19,14 +28,15 @@ const styles = {
 
 class Loading extends Component {
   render () {
-    const { classes } = this.props
-
+    const { visibleLoading, classes } = this.props
     return (
-      <div className={classes.root}>
-        <CircularProgress/>
-      </div>
+      visibleLoading && (
+        <div className={classes.root}>
+          <CircularProgress/>
+        </div>
+      )
     )
   }
 }
 
-export default withStyles(styles)(Loading)
+export default compose(connect(mapStateToProps), withStyles(styles))(Loading)

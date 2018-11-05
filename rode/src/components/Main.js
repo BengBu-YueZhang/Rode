@@ -4,6 +4,8 @@ import blueGrey from '@material-ui/core/colors/blueGrey'
 import RunRoute from '@/components/RunRoute'
 import routers from '@/routers'
 import { compose } from 'redux'
+import Message from '@/components/Message'
+import Loading from '@/components/Loading'
 
 const styles = {
   root: {
@@ -24,6 +26,8 @@ class Main extends Component {
     return (
       <div className={classes.root}>
         <RunRoute routes={routers}/>
+        <Message/>
+        <Loading/>
       </div>
     )
   }

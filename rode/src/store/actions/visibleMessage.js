@@ -1,5 +1,8 @@
+import uuidv1 from 'uuid/v1'
+
+export const ADD_MESSAGE_QUEUE = 'ADD_MESSAGE_QUEUE'
+export const PROCESS_QUEUE = 'PROCESS_QUEUE'
 export const VISIBLE_MESSAGE = 'VISIBLE_MESSAGE'
-export const SET_MESSAGE = 'SET_MESSAGE'
 
 export function visibleMessage (visible) {
   return {
@@ -8,9 +11,16 @@ export function visibleMessage (visible) {
   }
 }
 
-export function setMessage (message) {
+export function addMessageQueue (message) {
   return {
-    type: SET_MESSAGE,
-    message
+    type: ADD_MESSAGE_QUEUE,
+    message,
+    id: uuidv1()
+  }
+}
+
+export function processQueue () {
+  return {
+    type: PROCESS_QUEUE
   }
 }
