@@ -81,7 +81,7 @@ class User extends React.Component {
           </Typography>
           <List component="nav">
             {
-              userInfo.get('recent_topics') && userInfo.get('recent_topics').length && userInfo.get('recent_topics').map(topic => {
+              userInfo.get('recent_topics') && userInfo.get('recent_topics').size && userInfo.get('recent_topics').map(topic => {
                 return (
                   <React.Fragment key={topic.id}>
                     <ListItem button>
@@ -102,7 +102,7 @@ class User extends React.Component {
           </Typography>
           <List component="nav">
             {
-              userInfo.get('recent_replies') && userInfo.get('recent_replies').length && userInfo.get('recent_replies').map(replies => {
+              userInfo.get('recent_replies') && userInfo.get('recent_replies').size && userInfo.get('recent_replies').map(replies => {
                 return (
                   <React.Fragment key={replies.id}>
                     <ListItem button>

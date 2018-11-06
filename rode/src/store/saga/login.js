@@ -1,5 +1,5 @@
 import { login } from '@/api'
-import { take, fork, put, call, select } from 'redux-saga/effects'
+import { take, fork, put, call } from 'redux-saga/effects'
 import actions from '@/store/actions'
 import { setLocalStorage, removeLocalStorage, isHaveStorage } from '@/util/storage'
 

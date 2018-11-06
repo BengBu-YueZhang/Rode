@@ -4,6 +4,7 @@ import visibleMessage from '@/store/reducers/visibleMessage'
 import posts from '@/store/reducers/posts'
 import login from '@/store/reducers/login'
 import user from '@/store/reducers/user'
+import message from '@/store/reducers/message'
 
 function reducer (state = Map({}), action) {
   return Map({
@@ -11,7 +12,8 @@ function reducer (state = Map({}), action) {
     visibleMessage: visibleMessage(state.get('visibleMessage'), action),
     posts: posts(state.get('posts'), action),
     login: login(state.get('login'), action),
-    userInfo: user(state.get('userInfo'), action)
+    userInfo: user(state.get('userInfo'), action),
+    message: message(state.get('message'), action)
   })
 }
 

@@ -8,5 +8,7 @@ export default {
   // 登陆
   login: '/accesstoken',
   // 获取用户详情
-  user_detail: '/user/'
+  user_detail: '/user/',
+  // 获取未读取的消息和已读取的消息
+  messages: '/messages'
 }
