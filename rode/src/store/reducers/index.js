@@ -11,7 +11,7 @@ function reducer (state = Map({}), action) {
     visibleMessage: visibleMessage(state.get('visibleMessage'), action),
     posts: posts(state.get('posts'), action),
     login: login(state.get('login'), action),
-    user: user(state.get('user'), action)
+    userInfo: user(state.get('userInfo'), action)
   })
 }
 

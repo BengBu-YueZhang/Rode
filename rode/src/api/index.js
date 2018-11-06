@@ -31,7 +31,7 @@ export async function login (params) {
 // 获取用户详情
 export async function getUserDetail (username) {
   try {
-    return await Axios.get(`${api.user_detail}username`)
+    return await Axios.get(`${api.user_detail}${username}`)
   } catch (error) {
     throw error
   }

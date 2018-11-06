@@ -1,8 +1,7 @@
 import { login } from '@/api'
 import { take, fork, put, call, select } from 'redux-saga/effects'
 import actions from '@/store/actions'
-import { setLocalStorage, removeLocalStorage, isHaveStorage, getLocalStorage } from '@/util/storage'
-import { getLoginStatus } from '@/store/selectors/login'
+import { setLocalStorage, removeLocalStorage, isHaveStorage } from '@/util/storage'
 
 // 登录
 function* authorize (token, callback) {

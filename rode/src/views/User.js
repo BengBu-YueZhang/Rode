@@ -11,6 +11,8 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 import actions from '@/store/actions'
+import { getUserInfo } from '@/store/selectors/user'
+import { getLocalStorage } from '@/util/storage'
 
 const styles = {
   root: {
@@ -36,49 +38,62 @@ const styles = {
   },
   list: {
     width: '80%',
-    padding: '0, 30px',
     marginTop: '30px'
+  },
+  text: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    userInfo: getUserInfo(state)
   }
 }
 
 class User extends React.Component {
 
   componentDidMount () {
-    // this.props.dispatch(actions.userRequest())
+    this.init()
+  }
+
+  init = () => {
+    const name = getLocalStorage('loginname')
+    this.props.dispatch(actions.userRequest(name))
   }
 
   render () {
-    const { classes } = this.props
+    const { classes, userInfo } = this.props
     return (
       <div className={classes.root}>
-        <Avatar>
-          <PageviewIcon/>
-        </Avatar>
+        <Avatar src={userInfo.get('avatar_url')}/>
         <Typography variant="h6" className={classes.name}>
-          张越
+          { userInfo.get('loginname') }
         </Typography>
         <Typography component="p" className={classes.signature}>
-          咸鱼
+          积分: { userInfo.get('score') }
         </Typography>
         <div className={classes.list}>
           <Typography component="p">
             最近创建话题
           </Typography>
           <List component="nav">
-            <ListItem button>
-              <ListItemText primary="Inbox" />
-            </ListItem>
-            <Divider />
-            <ListItem button divider>
-              <ListItemText primary="Drafts" />
-            </ListItem>
-            <ListItem button>
-              <ListItemText primary="Trash" />
-            </ListItem>
-            <Divider light />
-            <ListItem button>
-              <ListItemText primary="Spam" />
-            </ListItem>
+            {
+              userInfo.get('recent_topics') && userInfo.get('recent_topics').length && userInfo.get('recent_topics').map(topic => {
+                return (
+                  <React.Fragment key={topic.id}>
+                    <ListItem button>
+                      <ListItemText primary={
+                        <p className={classes.text}>{topic.title}</p>
+                      } />
+                    </ListItem>
+                    <Divider/>
+                  </React.Fragment>
+                )
+              })
+            }
           </List>
         </div>
         <div className={classes.list}>
@@ -86,20 +101,22 @@ class User extends React.Component {
             最近参与话题
           </Typography>
           <List component="nav">
-            <ListItem button>
-              <ListItemText primary="Inbox" />
-            </ListItem>
-            <Divider />
-            <ListItem button divider>
-              <ListItemText primary="Drafts" />
-            </ListItem>
-            <ListItem button>
-              <ListItemText primary="Trash" />
-            </ListItem>
-            <Divider light />
-            <ListItem button>
-              <ListItemText primary="Spam" />
-            </ListItem>
+            {
+              userInfo.get('recent_replies') && userInfo.get('recent_replies').length && userInfo.get('recent_replies').map(replies => {
+                return (
+                  <React.Fragment key={replies.id}>
+                    <ListItem button>
+                      <ListItemText className={classes.text} 
+                        primary={
+                          <p className={classes.text}>{replies.title}</p>
+                        }
+                      />
+                    </ListItem>
+                    <Divider/>
+                  </React.Fragment>
+                )
+              })
+            }
           </List>
         </div>
       </div>
@@ -107,4 +124,4 @@ class User extends React.Component {
   }
 }
 
-export default compose(connect(), withStyles(styles))(User)
+export default compose(connect(mapStateToProps), withStyles(styles))(User)

@@ -1,12 +1,12 @@
 import { getUserDetail } from '@/api'
 import actions from '@/store/actions'
-import { take, put, call } from 'redux-saga/effects'
+import { take, put, call, fork } from 'redux-saga/effects'
 
 function* detail (name) {
   try {
     yield put(actions.visibleLoading(true))
-    const { data: { data } } = yield call(getUserDetail, name)
-    yield put(actions.userSuccess(), data)
+    const data = yield call(getUserDetail, name)
+    yield put(actions.userSuccess(data.data))
   } catch (error) {
     yield put(actions.userError())
   } finally {
@@ -16,7 +16,7 @@ function* detail (name) {
 
 function* main () {
   while (true) {
-    const { name } = yield take(actions.USER_ERROR)
+    const { name } = yield take(actions.USER_REQUEST)
     yield call(detail, name)
   }
 }
