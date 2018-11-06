@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -106,12 +106,6 @@ class PostList extends React.Component {
       </LoadMore>
     )
   }
-}
-
-PostList.propTypes = {
-}
-
-PostList.defaultProps = {
 }
 
 export default compose(connect(mapStateToProps), withStyles(styles))(PostList)

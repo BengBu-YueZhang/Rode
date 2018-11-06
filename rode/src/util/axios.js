@@ -1,10 +1,7 @@
 import axios from 'axios'
-import { isHaveStorage, getLocalStorage, removeLocalStorage } from '@/util/storage'
-import { createBrowserHistory } from 'history'
+import { isHaveStorage, getLocalStorage } from '@/util/storage'
 import stroe from '@/store'
 import actions from '@/store/actions'
-
-const history = createBrowserHistory()
 
 const Axios = axios.create({
   baseURL: 'https://cnodejs.org/api/v1',
