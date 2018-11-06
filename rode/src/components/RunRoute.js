@@ -1,6 +1,7 @@
 import { Redirect, Switch, Route } from 'react-router-dom'
 import React from 'react'
 import { isHaveStorage } from '@/util/storage'
+import stroe from '@/store'
 
 class RunRoute extends React.Component {
 
@@ -8,7 +9,7 @@ class RunRoute extends React.Component {
     if (config && config.meta && !config.meta.requiresAuth) {
       return true
     } else {
-      return isHaveStorage('token')
+      return stroe.getState().get('login')
     }
   }
 

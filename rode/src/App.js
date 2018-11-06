@@ -11,7 +11,7 @@ class App extends Component {
 
   constructor (props) {
     super(props)
-    // 获取登录的状态
+    // 初始化redux中的状态
     store.dispatch(actions.loginStatusQueue())
   }
 

@@ -9,7 +9,7 @@ function login (state = false, action) {
     case actions.LOGIN_SUCCESS:
       return true
     case actions.LOGIN_STATUS_QUEUE:
-      return isHaveStorage('token')
+      return (isHaveStorage('token') && isHaveStorage('loginname'))
     default:
       return state
   }
