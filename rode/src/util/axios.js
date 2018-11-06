@@ -13,11 +13,6 @@ const Axios = axios.create({
 
 Axios.interceptors.request.use(
   (config) => {
-    if (isHaveStorage('token') && config.data) {
-      let data = JSON.parse(config.data)
-      data.accesstoken = getLocalStorage('token')
-      config.data = JSON.stringify(data)
-    }
     return config
   },
   (error) => {
@@ -39,7 +34,7 @@ Axios.interceptors.response.use(
         stroe.dispatch(actions.processQueue())
         break
     }
-    return Promise.reject(errMessage)
+    return Promise.reject(error)
   }
 )
 

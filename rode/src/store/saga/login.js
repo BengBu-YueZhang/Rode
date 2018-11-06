@@ -28,13 +28,7 @@ function* verification () {
     (yield call(isHaveStorage, 'token')) &&
     (yield call(isHaveStorage, 'loginname'))
   ) {
-    const token = yield call(getLocalStorage, 'token')
-    try {
-      yield call(login, { accesstoken: token })
-      yield put(actions.loginSuccess())
-    } catch (error) {
-      yield put(actions.loginError())
-    }
+    yield put(actions.loginSuccess())
   } else {
     yield put(actions.logout())
   }
