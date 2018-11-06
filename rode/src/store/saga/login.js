@@ -1,9 +1,10 @@
 import { login } from '@/api'
 import { take, fork, put, call, select } from 'redux-saga/effects'
 import actions from '@/store/actions'
-import { setLocalStorage, removeLocalStorage, isHaveStorage } from '@/util/storage'
+import { setLocalStorage, removeLocalStorage, isHaveStorage, getLocalStorage } from '@/util/storage'
 import { getLoginStatus } from '@/store/selectors/login'
 
+// 登录
 function* authorize (token, callback) {
   try {
     yield put(actions.visibleLoading(true))
@@ -21,12 +22,30 @@ function* authorize (token, callback) {
   }
 }
 
-function* main () {
+// 验证登录状态
+function* verification () {
+  if (
+    (yield call(isHaveStorage, 'token')) &&
+    (yield call(isHaveStorage, 'loginname'))
+  ) {
+    const token = yield call(getLocalStorage, 'token')
+    try {
+      yield call(login, { accesstoken: token })
+      yield put(actions.loginSuccess())
+    } catch (error) {
+      yield put(actions.loginError())
+    }
+  } else {
+    yield put(actions.logout())
+  }
+}
+
+export function* initLogin () {
   while (true) {
     // 如果存在token, 则说明已登录, 不需要监听LOGIN_REQUEST
     if (!(yield select(getLoginStatus))) {
       const { token, callback } = yield take(actions.LOGIN_REQUEST)
-      yield fork(authorize, token, callback)
+      yield call(authorize, token, callback)
     }
     yield take([actions.LOGOUT, actions.LOGIN_ERROR])
     yield call(removeLocalStorage, 'token')
@@ -34,4 +53,9 @@ function* main () {
   }
 }
 
-export default main
+export function* verificationLogin () {
+  while (true) {
+    yield take(actions.LOGIN_STATUS_QUEUE)
+    yield call(verification)
+  }
+}
