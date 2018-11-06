@@ -1,6 +1,5 @@
 import React from 'react'
 import Avatar from '@material-ui/core/Avatar'
-import PageviewIcon from '@material-ui/icons/Pageview'
 import { withStyles } from '@material-ui/core/styles'
 import { compose } from 'redux'
 import { connect } from 'react-redux'

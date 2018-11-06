@@ -40,7 +40,7 @@ export async function getUserDetail (username) {
 // 获取消息列表
 export async function getMessages (params) {
   try {
-    return await Axios.get(api.messages, params)
+    return await Axios.get(api.messages, { params })
   } catch (error) {
     throw error
   }
