@@ -17,6 +17,7 @@ function* detail (name) {
 function* main () {
   while (true) {
     const { name } = yield take(actions.USER_ERROR)
+    yield call(detail, name)
   }
 }
 

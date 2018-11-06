@@ -10,6 +10,7 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
+import actions from '@/store/actions'
 
 const styles = {
   root: {
@@ -41,6 +42,11 @@ const styles = {
 }
 
 class User extends React.Component {
+
+  componentDidMount () {
+    // this.props.dispatch(actions.userRequest())
+  }
+
   render () {
     const { classes } = this.props
     return (
@@ -101,4 +107,4 @@ class User extends React.Component {
   }
 }
 
-export default compose(withStyles(styles))(User)
+export default compose(connect(), withStyles(styles))(User)
