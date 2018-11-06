@@ -85,7 +85,7 @@ class PostList extends React.Component {
               posts.size > 0 && posts.map(li => {
                 return (
                   <React.Fragment key={li.id}>
-                    <ListItem>
+                    <ListItem button>
                       {
                         li.author && li.author.avatar_url ? (
                           <Avatar src={li.author.avatar_url}/>

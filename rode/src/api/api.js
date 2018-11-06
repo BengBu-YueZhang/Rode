@@ -6,5 +6,7 @@ export default {
   // 帖子列表
   topics: '/topics',
   // 登陆
-  login: '/accesstoken'
+  login: '/accesstoken',
+  // 获取用户详情
+  user_detail: '/user/'
 }

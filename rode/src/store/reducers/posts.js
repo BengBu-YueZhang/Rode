@@ -8,6 +8,9 @@ const init = Map({
   refresh: true
 })
 
+/**
+ * 需要重构
+ */
 function posts (state = init, action) {
   switch (action.type) {
     case actions.POST_SUCCESS:

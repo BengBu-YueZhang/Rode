@@ -8,6 +8,7 @@ function login (state = false, action) {
       return false
     case actions.LOGIN_SUCCESS:
       return true
+    // 判断当前的用户登录状态
     case actions.LOGIN_STATUS_QUEUE:
       return (isHaveStorage('token') && isHaveStorage('loginname'))
     default:
