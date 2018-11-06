@@ -28,14 +28,12 @@ const mapStateToProps = (state) => {
 class Bar extends Component {
 
   handleLoginClick = () => {
-    const { history } = this.props
-    history.push('/login')
+    this.props.history.push('/login')
   }
 
   handleLogoutClick = () => {
-    const { dispatch, history } = this.props
-    dispatch(actions.logout())
-    history.push('/login')
+    this.props.dispatch(actions.logout())
+    this.props.history.push('/login')
   }
 
   render () {

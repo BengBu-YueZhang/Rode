@@ -20,36 +20,15 @@ const styles = {
 
 class Navigation extends Component {
 
-  constructor (props) {
-    super(props)
-    this.state = {
-      value: ''
-    }
-  }
-
-  componentDidMount () {
-    this.init()
-  }
-
-  init = () => {
-    const { location: { pathname } } = this.props
-    this.setState({
-      value: pathname
-    })
-  }
-
   handleChange = (event, value) => {
-    this.setState({ value }, () => {
-      this.props.history.push(value)
-    })
+    this.props.history.push(value)
   }
 
   render() {
-    const { value } = this.state
-    const { classes } = this.props
+    const { classes, location } = this.props
 
     return (
-      <BottomNavigation value={value} onChange={this.handleChange} className={classes.root}>
+      <BottomNavigation value={location.pathname} onChange={this.handleChange} className={classes.root}>
         <BottomNavigationAction label="主页" value="/list" icon={<ListIcon/>}/>
         <BottomNavigationAction label="消息" value="/message" icon={<MessageIcon/>} />
         <BottomNavigationAction label="我的" value="/user" icon={<AccountCircleIcon/>} />
