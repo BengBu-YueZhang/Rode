@@ -1,18 +1,15 @@
 import { login } from '@/api'
 import { take, fork, cancel, put, call } from 'redux-saga/effects'
 import actions from '@/store/actions'
-import { createBrowserHistory } from 'history'
+import { setLocalStorage, removeLocalStorage } from '@/util/storage'
 
-const history = createBrowserHistory()
-
-function* authorize (token, from) {
+function* authorize (token) {
   try {
     yield put(actions.visibleLoading(true))
-    const result = yield call(login, { accesstoken: token })
-    yield put(actions.loginSuccess(token))
+    yield call(login, { accesstoken: token })
     yield put(actions.addMessageQueue('登录成功'))
     yield put(actions.processQueue())
-    yield call(history.replace(`/#${from}`))
+    yield call(setLocalStorage('token', token))
   } catch (error) {
     yield put(actions.loginError())
   } finally {
@@ -22,9 +19,10 @@ function* authorize (token, from) {
 
 function* main () {
   while (true) {
-    const { token, from } = yield take(actions.LOGIN_REQUEST)
-    const task = yield fork(authorize, token, from)
+    const { token } = yield take(actions.LOGIN_REQUEST)
+    const task = yield fork(authorize, token)
     const action = yield take([actions.LOGOUT, actions.LOGIN_ERROR])
+    yield call(removeLocalStorage('token'))
     if(action.type === actions.LOGOUT)
       yield cancel(task)
   }
