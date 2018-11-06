@@ -37,9 +37,10 @@ function* verification () {
 export function* initLogin () {
   while (true) {
     // 如果存在token, 则说明已登录, 不需要监听LOGIN_REQUEST
-    if (!(yield select(getLoginStatus))) {
+    if (!(yield call(verification))) {
       const { token, callback } = yield take(actions.LOGIN_REQUEST)
-      yield call(authorize, token, callback)
+      // 使用非阻塞的fork, authorize, put的LOGOUT, LOGIN_ERROR, 可以被下面的take监听
+      yield fork(authorize, token, callback)
     }
     yield take([actions.LOGOUT, actions.LOGIN_ERROR])
     yield call(removeLocalStorage, 'token')
