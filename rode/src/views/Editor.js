@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Editor extends Component {
+class Editor extends React.Component {
   render () {
     return null
   }

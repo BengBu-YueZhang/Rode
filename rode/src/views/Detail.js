@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Detail extends Component {
+class Detail extends React.Component {
   render () {
     return null
   }

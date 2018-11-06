@@ -9,7 +9,7 @@ function* authorize (token) {
     yield call(login, { accesstoken: token })
     yield put(actions.addMessageQueue('登录成功'))
     yield put(actions.processQueue())
-    yield call(setLocalStorage('token', token))
+    yield call(setLocalStorage, 'token', token)
   } catch (error) {
     yield put(actions.loginError())
   } finally {
