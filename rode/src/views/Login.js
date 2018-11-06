@@ -7,6 +7,13 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import actions from '@/store/actions'
 import qs from 'qs'
+import { getLoginStatus } from '@/store/selectors/login'
+
+const mapStateToProps = (state) => {
+  return {
+    login: getLoginStatus(state)
+  }
+}
 
 const styles = {
   root: {
@@ -36,6 +43,12 @@ class Login extends React.Component {
       token: ''
     }
     this.from = '/'
+  }
+
+  componentDidMount () {
+    if (this.props.login) {
+      this.props.history.push('/')
+    }
   }
 
   handleChange = (e) => {
@@ -75,4 +88,4 @@ class Login extends React.Component {
   }
 }
 
-export default compose(connect(), withStyles(styles))(Login)
+export default compose(connect(mapStateToProps), withStyles(styles))(Login)
