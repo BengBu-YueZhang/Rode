@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { getPosts, getRefresh, getLoading, getLoadedAll } from '@/store/selectors/posts'
+import { getPosts, getLoading, getLoadedAll } from '@/store/selectors/posts'
 import actions from '@/store/actions'
 import ImageIcon from '@material-ui/icons/Image'
 import Divider from '@material-ui/core/Divider'
@@ -27,7 +27,6 @@ const styles = {
 const mapStateToProps = (state) => {
   return {
     posts: getPosts(state),
-    refresh: getRefresh(state),
     loading: getLoading(state),
     loadedAll: getLoadedAll(state)
   }
@@ -46,8 +45,7 @@ class PostList extends React.Component {
   }
 
   componentDidMount () {
-    const { refresh } = this.props
-    if (refresh) this.get()
+    this.get(false)
   }
 
   loadMore = () => {
@@ -58,15 +56,14 @@ class PostList extends React.Component {
         }
       }
     }, () => {
-      this.get()
+      this.get(true)
     })
   }
 
-  get = () => {
+  get = (more) => {
     const { dispatch } = this.props
     const { page, limit } = this.state.filter
-    dispatch(actions.postRefresh())
-    dispatch(actions.postRequest(page, limit))
+    dispatch(actions.postRequest(page, limit, more))
   }
 
   render () {
