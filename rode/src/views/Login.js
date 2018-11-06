@@ -44,11 +44,11 @@ class Login extends React.Component {
 
   handleClick = () => {
     const query = qs.parse(window.location.hash.split('?')[1])
-    const { dispatch } = this.props
-    if (query && query.from) {
-      this.from = query.from
-    }
-    dispatch(actions.loginRequest(this.state.token, this.from))
+    const { dispatch, history } = this.props
+    if (query && query.from) this.from = query.from
+    dispatch(actions.loginRequest(this.state.token, () => {
+      history.push(this.from)
+    }))
   }
 
   render () {

@@ -8,10 +8,11 @@ export function logout () {
   }
 }
 
-export function loginRequest (token) {
+export function loginRequest (token, callback) {
   return {
     type: LOGIN_REQUEST,
-    token
+    token,
+    callback
   }
 }
 
