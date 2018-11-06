@@ -36,6 +36,7 @@ Axios.interceptors.response.use(
     const errorCode = error.response.status
     const errMessage = error.response.data.error_msg || error.message
     switch (errorCode) {
+      // 统一的错误提示
       default:
         stroe.dispatch(actions.addMessageQueue(errMessage))
         stroe.dispatch(actions.processQueue())

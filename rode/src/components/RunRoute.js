@@ -42,7 +42,7 @@ class RunRoute extends Component {
                         />
                       ) : (
                         <Redirect
-                          to={`/login?form=${config.path}`}
+                          to={`/login?from=${config.path}`}
                         />
                       )
                     )

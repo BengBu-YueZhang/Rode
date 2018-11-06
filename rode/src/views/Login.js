@@ -35,6 +35,7 @@ class Login extends React.Component {
     this.state = {
       token: ''
     }
+    this.from = '/'
   }
 
   handleChange = (e) => {
@@ -42,8 +43,12 @@ class Login extends React.Component {
   }
 
   handleClick = () => {
+    const query = qs.parse(window.location.hash.split('?')[1])
     const { dispatch } = this.props
-    dispatch(actions.loginRequest(this.state.token))
+    if (query && query.from) {
+      this.from = query.from
+    }
+    dispatch(actions.loginRequest(this.state.token, this.from))
   }
 
   render () {
