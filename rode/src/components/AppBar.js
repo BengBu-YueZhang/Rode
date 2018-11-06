@@ -6,9 +6,9 @@ import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core/styles'
 import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
-import { isHaveStorage } from '@/util/storage'
 import { connect } from 'react-redux'
 import actions from '@/store/actions'
+import { getLoginStatus } from '@/store/selectors/login'
 
 const styles = {
   root: {
@@ -19,14 +19,13 @@ const styles = {
   }
 }
 
-class Bar extends Component {
-
-  constructor (props) {
-    super(props)
-    this.state = {
-      isLogin: isHaveStorage('token')
-    }
+const mapStateToProps = (state) => {
+  return {
+    login: getLoginStatus(state)
   }
+}
+
+class Bar extends Component {
 
   handleLoginClick = () => {
     const { history } = this.props
@@ -36,11 +35,11 @@ class Bar extends Component {
   handleLogoutClick = () => {
     const { dispatch, history } = this.props
     dispatch(actions.logout())
-    history.push('/')
+    history.push('/login')
   }
 
   render () {
-    const { classes } = this.props
+    const { classes, login } = this.props
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -49,7 +48,7 @@ class Bar extends Component {
               Rode
             </Typography>
             {
-              this.state.isLogin ? (
+              login ? (
                 <Button
                   color="inherit"
                   onClick={this.handleLogoutClick}
@@ -68,4 +67,4 @@ class Bar extends Component {
   }
 }
 
-export default compose(connect(), withRouter, withStyles(styles))(Bar)
+export default compose(connect(mapStateToProps), withRouter, withStyles(styles))(Bar)

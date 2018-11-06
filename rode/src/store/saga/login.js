@@ -7,6 +7,7 @@ function* authorize (token, callback) {
   try {
     yield put(actions.visibleLoading(true))
     yield call(login, { accesstoken: token })
+    yield put(actions.loginSuccess())
     yield put(actions.addMessageQueue('登录成功'))
     yield put(actions.processQueue())
     yield call(setLocalStorage, 'token', token)
