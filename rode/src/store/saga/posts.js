@@ -10,7 +10,6 @@ function* getTopics (page, limit) {
   } catch (error) {
     yield put(actions.postError())
   }
-  // yield put(actions.visibleLoading(false))
 }
 
 function* main () {
@@ -18,7 +17,6 @@ function* main () {
   // loading作为开关, 避免重复加载
   while (!loading) {
     const { page, limit } = yield take(actions.POST_REQUEST)
-    // yield put(actions.visibleLoading(true))
     yield call(getTopics, page, limit)
   }
 }

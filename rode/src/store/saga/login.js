@@ -1,7 +1,7 @@
 import { login } from '@/api'
 import { take, fork, cancel, put, call } from 'redux-saga/effects'
 import actions from '@/store/actions'
-import { setLocalStorage, removeLocalStorage } from '@/util/storage'
+import { setLocalStorage, removeLocalStorage, isHaveStorage } from '@/util/storage'
 
 function* authorize (token, callback) {
   try {
@@ -20,10 +20,14 @@ function* authorize (token, callback) {
 
 function* main () {
   while (true) {
-    const { token, callback } = yield take(actions.LOGIN_REQUEST)
-    const task = yield fork(authorize, token, callback)
+    let task = null
+    // 如果存在token, 则说明已登录, 不需要监听LOGIN_REQUEST
+    if (!isHaveStorage('token')) {
+      const { token, callback } = yield take(actions.LOGIN_REQUEST)
+      task = yield fork(authorize, token, callback)
+    }
     const action = yield take([actions.LOGOUT, actions.LOGIN_ERROR])
-    yield call(removeLocalStorage('token'))
+    yield call(removeLocalStorage, 'token')
     if(action.type === actions.LOGOUT)
       yield cancel(task)
   }
