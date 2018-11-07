@@ -6,7 +6,7 @@ function* messages (token) {
   try {
     yield put(actions.visibleLoading(true))
     const data = yield call(getMessages, { accesstoken: token })
-    yield put(actions.messageSuccess(data))
+    yield put(actions.messageSuccess(data.data))
   } catch (error) {
     yield put(actions.messageError())
   } finally {

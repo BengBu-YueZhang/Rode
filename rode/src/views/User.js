@@ -78,7 +78,7 @@ class User extends React.Component {
           <Typography component="p">
             最近创建话题
           </Typography>
-          <List component="nav">
+          <List>
             {
               userInfo.get('recent_topics') && userInfo.get('recent_topics').size && userInfo.get('recent_topics').map(topic => {
                 return (
@@ -99,7 +99,7 @@ class User extends React.Component {
           <Typography component="p">
             最近参与话题
           </Typography>
-          <List component="nav">
+          <List>
             {
               userInfo.get('recent_replies') && userInfo.get('recent_replies').size && userInfo.get('recent_replies').map(replies => {
                 return (

@@ -11,6 +11,7 @@ import blueGrey from '@material-ui/core/colors/blueGrey'
 import Typography from '@material-ui/core/Typography'
 import { connect } from 'react-redux'
 import { getMessage } from '@/store/selectors/message'
+import { Link } from 'react-router-dom'
 
 const styles = {
   root: {
@@ -26,6 +27,13 @@ const styles = {
   },
   content: {
     width: '80%'
+  },
+  title: {
+    marginTop: '10px'
+  },
+  text: {
+    fontSize: '14px',
+    color: blueGrey[600]
   }
 }
 
@@ -47,16 +55,102 @@ class Message extends React.Component {
   }
 
   render () {
-    const { classes } = this.props
+    const { classes, message } = this.props
+    console.log(message.toJS())
     return (
       <div className={classes.root}>
         <div className={classes.content}>
-          <Typography component="p">
+          <Typography variant="h6">
             新消息
           </Typography>
-          <Typography component="p">
+          <List>
+            {
+              message.get('hasnot_read_messages').size === 0 ? (
+                <Typography component="p" className={classes.signature}>
+                  暂无消息
+                </Typography>
+              ) : (
+                null
+              )
+            }
+          </List>
+          <Divider/>
+          <Typography variant="h6" className={classes.title}>
             过往消息
           </Typography>
+          <List>
+            {
+              message.get('has_read_messages').size === 0 ? (
+                <Typography component="p" className={classes.signature}>
+                  暂无消息
+                </Typography>
+              ) : (
+                message.get('has_read_messages').map(mes => {
+                  return (
+                    <React.Fragment key={mes.id}>
+                      <ListItem button>
+                        {
+                          mes.type === 'reply' && (
+                            <ListItemText
+                              primary={
+                                <React.Fragment>
+                                  <p className={classes.text}>
+                                    { 
+                                      <Link to={{
+                                        pathname: '/user',
+                                        search: `?name=${mes.author.loginname}`
+                                      }}>{ mes.author.loginname }</Link>
+                                    } 回复了您的话题  :
+                                  </p>
+                                  <p className={classes.text}>
+                                    <Link
+                                      to={{
+                                        pathname: '/detail',
+                                        search: `?id=${mes.topic.id}`
+                                      }}
+                                      className={classes.text}
+                                    >{ mes.topic.title }</Link>
+                                  </p>
+                                </React.Fragment>
+                              }
+                            />
+                          )
+                        }
+                        {
+                          mes.type === 'at' && (
+                            <ListItemText
+                              primary={
+                                <React.Fragment>
+                                  <p className={classes.text}>
+                                    { 
+                                      <Link to={{
+                                        pathname: '/user',
+                                        search: `?name=${mes.author.loginname}`
+                                      }}>{ mes.author.loginname }</Link>
+                                    } 在话题  :
+                                  </p>
+                                  <p className={classes.text}>
+                                    <Link
+                                      to={{
+                                        pathname: '/detail',
+                                        search: `?id=${mes.topic.id}`
+                                      }}
+                                      className={classes.text}
+                                    >{ mes.topic.title }</Link> 中@了您
+                                  </p>
+                                </React.Fragment>
+                              }
+                            />
+                          )
+                        }
+                      </ListItem>
+                      <Divider/>
+                    </React.Fragment>
+                  )
+                })
+              )
+            }
+          </List>
         </div>
       </div>
     )
