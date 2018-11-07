@@ -11,7 +11,6 @@ import actions from '@/store/actions'
 import ImageIcon from '@material-ui/icons/Image'
 import Divider from '@material-ui/core/Divider'
 import LoadMore from '@/components/LoadMore'
-import { Link } from 'react-router-dom'
 import ListItemText from '@material-ui/core/ListItemText'
 
 const styles = {

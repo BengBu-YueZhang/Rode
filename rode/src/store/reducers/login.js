@@ -1,5 +1,4 @@
 import actions from '@/store/actions'
-import { isHaveStorage } from '@/util/storage'
 
 function login (state = false, action) {
   switch (action.type) {

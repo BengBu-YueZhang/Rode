@@ -1,6 +1,6 @@
 import { getUserDetail } from '@/api'
 import actions from '@/store/actions'
-import { take, put, call, fork } from 'redux-saga/effects'
+import { take, put, call } from 'redux-saga/effects'
 
 function* detail (name) {
   try {

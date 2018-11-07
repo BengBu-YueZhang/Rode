@@ -1,6 +1,5 @@
 import { Redirect, Switch, Route } from 'react-router-dom'
 import React from 'react'
-import { isHaveStorage } from '@/util/storage'
 import stroe from '@/store'
 
 class RunRoute extends React.Component {
