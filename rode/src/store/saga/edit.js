@@ -2,13 +2,13 @@ import { take, fork, put, call } from 'redux-saga/effects'
 import { addTopics } from '@/api'
 import actions from '@/store/actions'
 
-function* publish (data) {
+function* publish (data, callback) {
   try {
     yield put(actions.visibleLoading(true))
-    console.log(data)
     yield call(addTopics, data)
     yield put(actions.addMessageQueue('发表成功'))
     yield put(actions.processQueue())
+    yield call(callback)
   } catch (error) {
     yield put(actions.addMessageQueue('发表失败'))
     yield put(actions.processQueue())
@@ -19,9 +19,8 @@ function* publish (data) {
 
 function* main () {
   while (true) {
-    const { data } = yield take(actions.EDIT_REQUEST)
-    console.log(data)
-    yield fork(publish, data)
+    const { data, callback } = yield take(actions.EDIT_REQUEST)
+    yield fork(publish, data, callback)
   }
 }
 

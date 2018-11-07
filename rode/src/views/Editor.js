@@ -8,6 +8,7 @@ import actions from '@/store/actions'
 import Button from '@material-ui/core/Button'
 import Icon from '@material-ui/core/Icon'
 import { getLocalStorage } from '@/util/storage'
+import { withRouter } from 'react-router-dom'
 
 const styles = {
   root: {
@@ -50,10 +51,15 @@ class Editor extends React.Component {
   }
 
   handleClick = () => {
-    this.props.dispatch(actions.editRequest({
-      accesstoken: getLocalStorage('token'),
-      ...this.state
-    }))
+    this.props.dispatch(
+      actions.editRequest(
+        {
+          accesstoken: getLocalStorage('token'),
+          ...this.state
+        },
+        () => this.props.history.push('/list')
+      )
+    )
   }
 
   render () {
@@ -107,4 +113,4 @@ class Editor extends React.Component {
   }
 }
 
-export default compose(connect(), withStyles(styles))(Editor)
+export default compose(connect(), withRouter, withStyles(styles))(Editor)

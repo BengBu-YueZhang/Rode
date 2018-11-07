@@ -1,8 +1,9 @@
-export const EDIT_REQUEST = 'MESSAGE_REQUEST'
+export const EDIT_REQUEST = 'EDIT_REQUEST'
 
-export function editRequest (data) {
+export function editRequest (data, callback) {
   return {
     type: EDIT_REQUEST,
-    data
+    data,
+    callback
   }
 }
