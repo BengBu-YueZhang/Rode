@@ -10,5 +10,7 @@ export default {
   // 获取用户详情
   user_detail: '/user/',
   // 获取未读取的消息和已读取的消息
-  messages: '/messages'
+  messages: '/messages',
+  // 发布新的内容
+  add: '/topics'
 }

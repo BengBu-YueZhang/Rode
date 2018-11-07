@@ -45,3 +45,12 @@ export async function getMessages (params) {
     throw error
   }
 }
+
+// 添加新的帖子
+export async function addTopics (params) {
+  try {
+    return await Axios.post(api.add, params)
+  } catch (error) {
+    throw error
+  }
+}
