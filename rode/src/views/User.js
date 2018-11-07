@@ -13,6 +13,7 @@ import actions from '@/store/actions'
 import { getUserInfo } from '@/store/selectors/user'
 import { getLocalStorage } from '@/util/storage'
 import qs from 'qs'
+import { Link } from 'react-router-dom'
 
 const styles = {
   root: {
@@ -44,6 +45,10 @@ const styles = {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis'
+  },
+  link: {
+    fontSize: '14px',
+    color: blueGrey[600]
   }
 }
 
@@ -92,7 +97,12 @@ class User extends React.Component {
                   <React.Fragment key={topic.id}>
                     <ListItem button>
                       <ListItemText primary={
-                        <p className={classes.text}>{topic.title}</p>
+                        <p className={classes.text}>
+                          <Link className={classes.link} to={{
+                            pathname: '/detail',
+                            search: `?id=${topic.id}`
+                          }}>{topic.title}</Link>
+                        </p>
                       } />
                     </ListItem>
                     <Divider/>
@@ -114,7 +124,12 @@ class User extends React.Component {
                     <ListItem button>
                       <ListItemText className={classes.text} 
                         primary={
-                          <p className={classes.text}>{replies.title}</p>
+                          <p className={classes.text}>
+                            <Link className={classes.link} to={{
+                              pathname: '/detail',
+                              search: `?id=${replies.id}`
+                            }}>{replies.title}</Link>
+                          </p>
                         }
                       />
                     </ListItem>
