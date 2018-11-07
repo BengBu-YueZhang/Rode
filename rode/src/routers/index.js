@@ -73,7 +73,7 @@ const routers = [
     }
   },
   {
-    path: '/detail/:id',
+    path: '/detail',
     component: Detail,
     meta: {
       requiresAuth: false

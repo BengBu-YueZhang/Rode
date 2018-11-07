@@ -3,7 +3,6 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
@@ -12,6 +11,8 @@ import actions from '@/store/actions'
 import ImageIcon from '@material-ui/icons/Image'
 import Divider from '@material-ui/core/Divider'
 import LoadMore from '@/components/LoadMore'
+import { Link } from 'react-router-dom'
+import ListItemText from '@material-ui/core/ListItemText'
 
 const styles = {
   list: {
@@ -82,7 +83,7 @@ class PostList extends React.Component {
               posts.size > 0 && posts.map(li => {
                 return (
                   <React.Fragment key={li.id}>
-                    <ListItem button>
+                    <ListItem component="a" href={`#detail?${li.id}`} button>
                       {
                         li.author && li.author.avatar_url ? (
                           <Avatar src={li.author.avatar_url}/>

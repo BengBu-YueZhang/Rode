@@ -1,9 +1,30 @@
 import React from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import { compose } from 'redux'
 
-class Detail extends React.Component {
-  render () {
-    return null
+const styles = {
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%'
+  },
+  title: {
+    fontSize: '40px'
   }
 }
 
-export default Detail
+class Detail extends React.Component {
+  
+  render () {
+    const { classes } = this.props
+    return (
+      <div className={classes.root}>
+        <h1 className={classes.title}>: ( &nbsp; Empty</h1>
+      </div>
+    )
+  }
+}
+
+export default compose(withStyles(styles))(Detail)
