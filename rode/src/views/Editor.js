@@ -50,7 +50,7 @@ class Editor extends React.Component {
   }
 
   handleClick = () => {
-    this.props.dispatch(actions.messageRequest({
+    this.props.dispatch(actions.editRequest({
       accesstoken: getLocalStorage('token'),
       ...this.state
     }))

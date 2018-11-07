@@ -19,7 +19,8 @@ function* publish (data) {
 
 function* main () {
   while (true) {
-    const { data } = yield take(actions.messageRequest)
+    const { data } = yield take(actions.EDIT_REQUEST)
+    console.log(data)
     yield fork(publish, data)
   }
 }

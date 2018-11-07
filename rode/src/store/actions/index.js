@@ -4,6 +4,7 @@ import * as posts from '@/store/actions/posts'
 import * as login from '@/store/actions/login'
 import * as user from '@/store/actions/user'
 import * as message from '@/store/actions/message'
+import * as edit from '@/store/actions/edit'
 
 export default {
   ...visibleLoading,
@@ -11,5 +12,6 @@ export default {
   ...posts,
   ...login,
   ...user,
-  ...message
+  ...message,
+  ...edit
 }
