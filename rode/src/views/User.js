@@ -12,6 +12,7 @@ import Divider from '@material-ui/core/Divider'
 import actions from '@/store/actions'
 import { getUserInfo } from '@/store/selectors/user'
 import { getLocalStorage } from '@/util/storage'
+import qs from 'qs'
 
 const styles = {
   root: {
@@ -59,7 +60,13 @@ class User extends React.Component {
   }
 
   init = () => {
-    const name = getLocalStorage('loginname')
+    let name = ''
+    console.log()
+    if (this.props.location.search) {
+      name = qs.parse(this.props.location.search.split('?')[1]).name
+    } else {
+      name = getLocalStorage('loginname')
+    }
     this.props.dispatch(actions.userRequest(name))
   }
 
